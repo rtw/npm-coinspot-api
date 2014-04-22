@@ -48,6 +48,10 @@ function coinspot(key, secret) {
 		req.end();
 	}
 
+	self.orders = function(cointype, callback) {
+		request('/api/orders', {cointype:cointype}, callback);
+	}
+
 	self.myorders = function(callback) {
 		request('/api/my/orders', {}, callback);
 	}
