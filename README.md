@@ -4,9 +4,7 @@ Please see https://www.coinspot.com.au/api for documentation on the CoinSpot API
 Example usage
 
 ```javascript
-var hmac = require("crypto").createHmac,
-	https = require('https'),
-	coinspot = require('./coinspot');
+var coinspot = require('coinspot-api');
 
 var secret = ''; // insert your secret here
 var key = ''; // insert your key here
