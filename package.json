@@ -1,6 +1,6 @@
 {
   "name": "coinspot-api",
-  "version": "0.0.10",
+  "version": "0.0.20",
   "description": "coinspot.com.au API client for node.js",
   "keywords": [
     "btc",
