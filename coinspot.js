@@ -22,8 +22,8 @@ function coinspot(key, secret) {
 		var options = {
 			rejectUnauthorized: false,
 			method: 'POST',
-			host: 'localhost',
-			port: 9000,
+			host: 'www.coinspot.com.au',
+			port: 443,
 			path: path,
 			headers: {
 				'Content-Type': 'application/json',
