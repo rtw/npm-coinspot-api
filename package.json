@@ -1,0 +1,32 @@
+{
+  "name": "coinspot-api",
+  "version": "0.0.10",
+  "description": "coinspot.com.au API client for node.js",
+  "keywords": [
+    "btc",
+    "bitcoin",
+    "litecoin",
+    "ltc",
+    "dogecoin",
+    "doge",
+    "coinspot"
+  ],
+  "author": {
+    "name": "Russell Wilson",
+    "url": "https://github.com/rtw"
+  },
+  "contributors": [],
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/rtw/npm-coinspot-api"
+  },
+  "main": "coinspot.js",
+  "engines": {
+    "node": ">=0.10"
+  },
+  "bugs": {
+    "url": "https://github.com/rtw/npm-coinspot-api/issues",
+    "email": "rtw1981@gmail.com"
+  }
+}
