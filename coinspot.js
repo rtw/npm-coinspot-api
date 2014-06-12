@@ -48,6 +48,26 @@ function coinspot(key, secret) {
 		req.end();
 	}
 
+	self.sendcoin = function(cointype, amount, address, callback) {
+		request('/api/my/coin/send', {cointype:cointype, amount:amount, address:address}, callback);
+	}
+
+	self.coindeposit = function(cointype, callback) {
+		request('/api/my/coin/deposit', {cointype:cointype}, callback);
+	}
+
+	self.quotebuy = function(cointype, amount, callback) {
+		request('/api/quote/buy', {cointype:cointype, amount:amount}, callback);
+	}
+
+	self.quotesell = function(cointype, amount, callback) {
+		request('/api/quote/sell', {cointype:cointype, amount:amount}, callback);
+	}
+
+	self.balances = function(callback) {
+		request('/api/my/balances', {}, callback);
+	}
+
 	self.orders = function(cointype, callback) {
 		request('/api/orders', {cointype:cointype}, callback);
 	}
