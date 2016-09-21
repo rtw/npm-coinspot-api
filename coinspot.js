@@ -94,6 +94,11 @@ function coinspot(key, secret) {
 		var data = {id: id}
 		request('/api/my/sell/cancel', data, callback);
 	}
+
+	self.cancelbuy = function(id, callback) {
+		var data = {id: id}
+		request('/api/my/buy/cancel', data, callback);
+	}
 }
 
 module.exports = coinspot;
