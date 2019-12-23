@@ -1,24 +1,24 @@
-var hmac = require("crypto").createHmac,
+const hmac = require("crypto").createHmac,
 	https = require('https');
 
 function coinspot(key, secret) {
   	this.key = key;
   	this.secret = secret;
 
-	var request = (path, postdata, callback) => {
-		var nonce = new Date().getTime();
+	const request = (path, postdata, callback) => {
+		const nonce = new Date().getTime();
 
-		var postdata = postdata || {};
+		let postdata = postdata || {};
 		postdata.nonce = nonce;
 
-		var stringmessage = JSON.stringify(postdata);
-		var signedMessage = new hmac("sha512", this.secret);
+		const stringmessage = JSON.stringify(postdata);
+		const signedMessage = new hmac("sha512", this.secret);
 
 		signedMessage.update(stringmessage);
 
-		var sign = signedMessage.digest('hex');
+		const sign = signedMessage.digest('hex');
 
-		var options = {
+		const options = {
 			rejectUnauthorized: false,
 			method: 'POST',
 			host: 'www.coinspot.com.au',
@@ -31,8 +31,8 @@ function coinspot(key, secret) {
 			}
 		};
 
-		var req = https.request(options, (resp) => {
-			var data = '';
+		const req = https.request(options, (resp) => {
+			let data = '';
 			resp.on('data', (chunk) => {
 				data += chunk;
 			});
@@ -80,12 +80,12 @@ function coinspot(key, secret) {
 	}
 
 	this.buy = (cointype, amount, rate, callback) => {
-		var data = {cointype:cointype, amount:amount, rate: rate}
+		const data = {cointype:cointype, amount:amount, rate: rate}
 		request('/api/my/buy', data, callback);
 	}
 
 	this.sell = (cointype, amount, rate, callback) => {
-		var data = {cointype:cointype, amount:amount, rate: rate}
+		const data = {cointype:cointype, amount:amount, rate: rate}
 		request('/api/my/sell', data, callback);
 	}
 
