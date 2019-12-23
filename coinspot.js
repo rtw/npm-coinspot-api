@@ -2,18 +2,17 @@ var hmac = require("crypto").createHmac,
 	https = require('https');
 
 function coinspot(key, secret) {
-  	var self = this;
-  	self.key = key;
-  	self.secret = secret;
+  	this.key = key;
+  	this.secret = secret;
 
-	var request = function(path, postdata, callback) {
+	var request = (path, postdata, callback) => {
 		var nonce = new Date().getTime();
 
 		var postdata = postdata || {};
 		postdata.nonce = nonce;
 
 		var stringmessage = JSON.stringify(postdata);
-		var signedMessage = new hmac("sha512", self.secret);
+		var signedMessage = new hmac("sha512", this.secret);
 
 		signedMessage.update(stringmessage);
 
@@ -28,19 +27,19 @@ function coinspot(key, secret) {
 			headers: {
 				'Content-Type': 'application/json',
 				'sign': sign,
-				'key': self.key
+				'key': this.key
 			}
 		};
 
-		var req = https.request(options, function(resp){
+		var req = https.request(options, (resp) => {
 			var data = '';
-			resp.on('data', function(chunk){
+			resp.on('data', (chunk) => {
 				data += chunk;
 			});
-			resp.on('end', function(chunk){
+			resp.on('end', (chunk) => {
 				callback(null, data);
 			});
-		}).on("error", function(e){
+		}).on("error", (e) => {
 			callback(e, data);
 		});
 
@@ -48,49 +47,49 @@ function coinspot(key, secret) {
 		req.end();
 	}
 
-	self.sendCoin = function(cointype, amount, address, callback) {
+	this.sendCoin = (cointype, amount, address, callback) => {
 		request('/api/my/coin/send', {cointype:cointype, amount:amount, address:address}, callback);
 	}
 
-	self.coinDeposit = function(cointype, callback) {
+	this.coinDeposit = (cointype, callback) => {
 		request('/api/my/coin/deposit', {cointype:cointype}, callback);
 	}
 
-	self.quoteBuy = function(cointype, amount, callback) {
+	this.quoteBuy = (cointype, amount, callback) => {
 		request('/api/quote/buy', {cointype:cointype, amount:amount}, callback);
 	}
 
-	self.quoteSell = function(cointype, amount, callback) {
+	this.quoteSell = (cointype, amount, callback) => {
 		request('/api/quote/sell', {cointype:cointype, amount:amount}, callback);
 	}
 
-	self.balances = function(callback) {
+	this.balances = (callback) => {
 		request('/api/my/balances', {}, callback);
 	}
 
-	self.orders = function(cointype, callback) {
+	this.orders = (cointype, callback) => {
 		request('/api/orders', {cointype:cointype}, callback);
 	}
 
-	self.myOrders = function(callback) {
+	this.myOrders = (callback) => {
 		request('/api/my/orders', {}, callback);
 	}
 
-	self.spot = function(callback) {
+	this.spot = (callback) => {
 		request('/api/spot', {}, callback);
 	}
 
-	self.buy = function(cointype, amount, rate, callback) {
+	this.buy = (cointype, amount, rate, callback) => {
 		var data = {cointype:cointype, amount:amount, rate: rate}
 		request('/api/my/buy', data, callback);
 	}
 
-	self.sell = function(cointype, amount, rate, callback) {
+	this.sell = (cointype, amount, rate, callback) => {
 		var data = {cointype:cointype, amount:amount, rate: rate}
 		request('/api/my/sell', data, callback);
 	}
 
-	self.cancelBuy = (id, callback) => {
+	this.cancelBuy = (id, callback) => {
 		request(
 			'/api/my/buy/cancel',
 			{ 
@@ -100,7 +99,7 @@ function coinspot(key, secret) {
 		);
 	}
 
-	self.cancelSell = (id, callback) => {
+	this.cancelSell = (id, callback) => {
 		request(
 			'/api/my/sell/cancel',
 			{ 
