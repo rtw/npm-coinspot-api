@@ -5,10 +5,10 @@ function coinspot(key, secret) {
   	this.key = key;
   	this.secret = secret;
 
-	const request = (path, postdata, callback) => {
+	const request = (path, callback, postdata) => {
 		const nonce = new Date().getTime();
 
-		let postdata = postdata || {};
+		var postdata = postdata || {};
 		postdata.nonce = nonce;
 
 		const stringmessage = JSON.stringify(postdata);
@@ -36,7 +36,7 @@ function coinspot(key, secret) {
 			resp.on('data', (chunk) => {
 				data += chunk;
 			});
-			resp.on('end', (chunk) => {
+			resp.on('end', () => {
 				callback(null, data);
 			});
 		}).on("error", (e) => {
@@ -48,65 +48,53 @@ function coinspot(key, secret) {
 	}
 
 	this.sendCoin = (cointype, amount, address, callback) => {
-		request('/api/my/coin/send', {cointype:cointype, amount:amount, address:address}, callback);
+		request('/api/my/coin/send', callback, {cointype:cointype, amount:amount, address:address});
 	}
 
 	this.coinDeposit = (cointype, callback) => {
-		request('/api/my/coin/deposit', {cointype:cointype}, callback);
+		request('/api/my/coin/deposit', callback, {cointype:cointype});
 	}
 
 	this.quoteBuy = (cointype, amount, callback) => {
-		request('/api/quote/buy', {cointype:cointype, amount:amount}, callback);
+		request('/api/quote/buy', callback, {cointype:cointype, amount:amount});
 	}
 
 	this.quoteSell = (cointype, amount, callback) => {
-		request('/api/quote/sell', {cointype:cointype, amount:amount}, callback);
+		request('/api/quote/sell', callback, {cointype:cointype, amount:amount});
 	}
 
 	this.balances = (callback) => {
-		request('/api/my/balances', {}, callback);
+		request('/api/my/balances', callback);
 	}
 
 	this.orders = (cointype, callback) => {
-		request('/api/orders', {cointype:cointype}, callback);
+		request('/api/orders', callback, {cointype:cointype});
 	}
 
 	this.myOrders = (callback) => {
-		request('/api/my/orders', {}, callback);
+		request('/api/my/orders', callback);
 	}
 
 	this.spot = (callback) => {
-		request('/api/spot', {}, callback);
+		request('/api/spot', callback);
 	}
 
 	this.buy = (cointype, amount, rate, callback) => {
 		const data = {cointype:cointype, amount:amount, rate: rate}
-		request('/api/my/buy', data, callback);
+		request('/api/my/buy', callback, data);
 	}
 
 	this.sell = (cointype, amount, rate, callback) => {
 		const data = {cointype:cointype, amount:amount, rate: rate}
-		request('/api/my/sell', data, callback);
+		request('/api/my/sell', callback, data);
 	}
 
 	this.cancelBuy = (id, callback) => {
-		request(
-			'/api/my/buy/cancel',
-			{ 
-				id
-			},
-			callback
-		);
+		request('/api/my/buy/cancel', callback, { id });
 	}
 
 	this.cancelSell = (id, callback) => {
-		request(
-			'/api/my/sell/cancel',
-			{ 
-				id
-			},
-			callback
-		);
+		request('/api/my/sell/cancel', callback, { id });
 	}
 }
 

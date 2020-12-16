@@ -15,16 +15,12 @@
     "name": "Russell Wilson",
     "url": "https://github.com/rtw"
   },
-  "contributors": [],
   "license": "MIT",
   "repository": {
     "type": "git",
     "url": "https://github.com/rtw/npm-coinspot-api"
   },
   "main": "coinspot.js",
-  "engines": {
-    "node": ">=0.10"
-  },
   "bugs": {
     "url": "https://github.com/rtw/npm-coinspot-api/issues",
     "email": "rtw1981@gmail.com"
