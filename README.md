@@ -22,7 +22,7 @@ coinspotClient.balances((data, error) => {
 });
 ```
 ## Making Calls
-All calls require a callback, returning `data` and `error` if there are any. `data` is an object with all response information. Here's an example of what `transactions()`' data looks like:
+All calls require a callback, returning `data` and `error` if there are any. `data` is an object with all response information. Here's an example of what `transactions()`'s `data` looks like:
 ```javascript
 {
   status: 'ok',
@@ -55,4 +55,4 @@ I could not get [/api/ro/my/balances/:cointype](https://www.coinspot.com.au/api#
 
 ## Credit
 This package is a fork of [Martin Wheeler](https://github.com/martinwheeler/npm-coinspot-api)'s.  
-This README and the respotiory description were modelled after the [CoinGecko API Client for Node.js](https://github.com/miscavage/CoinGecko-API)
+This README and the repository description were modelled after the [CoinGecko API Client for Node.js](https://github.com/miscavage/CoinGecko-API)
