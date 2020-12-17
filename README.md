@@ -1,5 +1,8 @@
+I think all dates/times are in GMT  
 Please see https://www.coinspot.com.au/api for documentation on the CoinSpot API.
 
+## Bugs
+I could not get [/api/ro/my/balances/:cointype to work](https://www.coinspot.com.au/api#rocoinsbalance)
 
 Example usage
 

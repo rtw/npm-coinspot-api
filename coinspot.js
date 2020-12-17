@@ -5,6 +5,11 @@ function coinspot(key, secret) {
   	this.key = key;
   	this.secret = secret;
 
+	const formatData = data => {
+		try { return JSON.parse(data) } 
+		catch { return data }
+	}
+
 	const request = (path, callback, postdata) => {
 		const nonce = new Date().getTime();
 
@@ -37,10 +42,10 @@ function coinspot(key, secret) {
 				data += chunk;
 			});
 			resp.on('end', () => {
-				callback(JSON.parse(data), null);
+				callback(formatData(data), null);
 			});
 		}).on("error", (e) => {
-			callback(JSON.parse(data), e);
+			callback(formatData(data), e);
 		});
 
 		req.write(stringmessage);
@@ -64,7 +69,7 @@ function coinspot(key, secret) {
 	}
 
 	this.balances = (callback) => {
-		request('/api/my/balances', callback);
+		request('/api/ro/my/balances', callback);
 	}
 
 	this.orders = (cointype, callback) => {
@@ -75,6 +80,7 @@ function coinspot(key, secret) {
 		request('/api/my/orders', callback);
 	}
 
+	// Deprecated
 	this.spot = (callback) => {
 		request('/api/spot', callback);
 	}
@@ -95,6 +101,39 @@ function coinspot(key, secret) {
 
 	this.cancelSell = (id, callback) => {
 		request('/api/my/sell/cancel', callback, { id });
+	}
+
+	// These were added by Kowasaur
+
+	this.depositHistory = (callback, startdate, enddate) => {
+		request('/api/ro/my/deposits', callback, {startdate, enddate})
+	}
+
+	this.withdrawalHistory = (callback, startdate, enddate) => {
+		request('/api/ro/my/withdrawals', callback, {startdate, enddate})
+	}
+
+	this.transactions = (callback, params = { cointype: '', startdate: '', enddate: '' }) => {
+		// the || '' part is need so that when using dates without a cointype, it works
+		request('/api/ro/my/transactions/' + (params.cointype || ''), callback, {
+			startdate: params.startdate, enddate: params.enddate})
+	}
+
+	this.openTransactions = (callback, cointype) => {
+		const path = (!cointype) ? '/api/ro/my/transactions/open/' : `/api/ro/my/transactions/${cointype}/open/`
+		request(path, callback)
+	}
+
+	this.sendReceive = callback => {
+		request('/api/ro/my/sendreceive', callback)
+	}
+
+	this.affiliate = callback => {
+		request('/api/ro/my/affiliatepayments', callback)
+	}
+
+	this.referral = callback => {
+		request('/api/ro/my/referralpayments', callback)
 	}
 }
 
